@@ -143,5 +143,5 @@ Parâmetros do comando `docker run`:
 docker login
 
 # Enviando nossa imagem para o Docker Hub
-docker push <hub-user>/helloworld:latest
+docker push <hub-user>/helloworld:latest 
 ```
