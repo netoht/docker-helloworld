@@ -127,6 +127,12 @@ Parâmetros do comando `docker run`:
 - `-h`: nome do host do container
 - `--name`: nome do container
 
+## Listando as configurações do container
+
+```sh
+docker inspect server1
+```
+
 ## Compartilhando sua imagem no Docker Hub
 
 1. Acesse o [Docker Hub](http://hub.docker.com)
@@ -143,5 +149,13 @@ Parâmetros do comando `docker run`:
 docker login
 
 # Enviando nossa imagem para o Docker Hub
-docker push <hub-user>/helloworld:latest 
+docker push <hub-user>/helloworld:latest
 ```
+
+# Extras
+
+- [Referências do comando docker run](https://docs.docker.com/engine/reference/run/)
+- [Referências do arquivo Dockerfile](https://docs.docker.com/engine/reference/builder/)
+- [Melhores práticas para criação do Dockerfile](https://docs.docker.com/engine/articles/dockerfile_best-practices/)
+- [Criando seus repositórios no Docker Hub](https://docs.docker.com/docker-hub/repos/)
+- [Criando seu próprio Docker Registry Privado](https://docs.docker.com/registry/deploying/)
