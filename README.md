@@ -152,8 +152,9 @@ docker login
 docker push <hub-user>/helloworld:latest
 ```
 
-# Extras
+## Extras
 
+- [Entendendo como funciona o Docker](https://docs.docker.com/engine/introduction/understanding-docker/)
 - [Referências do comando docker run](https://docs.docker.com/engine/reference/run/)
 - [Referências do arquivo Dockerfile](https://docs.docker.com/engine/reference/builder/)
 - [Melhores práticas para criação do Dockerfile](https://docs.docker.com/engine/articles/dockerfile_best-practices/)
