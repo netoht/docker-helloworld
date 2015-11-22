@@ -1,0 +1,17 @@
+web1:
+  hostname: server-web1
+  image: netoht/docker-helloworld:latest
+  environment:
+    - TCP_PORTS=5000
+web2:
+  hostname: server-web2
+  image: netoht/docker-helloworld:latest
+  environment:
+    - TCP_PORTS=5000
+haproxy:
+  image: tutum/haproxy
+  links:
+    - web1
+    - web2
+  ports:
+    - 5000:5000

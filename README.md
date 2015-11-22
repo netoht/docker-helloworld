@@ -22,10 +22,8 @@ No terminal configure o acesso ao host
 # Iniciando a máquina virtual
 docker-machine start default
 
-# Descobrindo o ip da máquina virtual
-export DOCKER_HOST=tcp://$(docker-machine ip default):2376
-export DOCKER_CERT_PATH=$HOME/.docker/machine/machines/default
-export DOCKER_TLS_VERIFY=1
+# Configurando as variáveis de ambiente para acesso do host default
+eval "$(docker-machine env default)"
 ```
 
 ## Testando a instalação do Docker
@@ -114,10 +112,10 @@ e9fa5d3a0d0e: Download complete
 
 ```sh
 # Construindo a imagem
-docker build -t <hub-user>/helloworld:latest .
+docker build -t <hub-user>/docker-helloworld:latest .
 
 # Iniciando um container com a sua imagem
-docker run -d -p 8080:5000 -h myserver-1 --name server1 <hub-user>/helloworld:latest
+docker run -d -p 8080:5000 -h myserver-1 --name server1 <hub-user>/docker-helloworld:latest
 ```
 
 Parâmetros do comando `docker run`:
@@ -149,7 +147,7 @@ docker inspect server1
 docker login
 
 # Enviando nossa imagem para o Docker Hub
-docker push <hub-user>/helloworld:latest
+docker push <hub-user>/docker-helloworld:latest
 ```
 
 ## Removendo um container
@@ -176,3 +174,4 @@ docker rm -f $(docker ps -a -q)
 - [Melhores práticas para criação do Dockerfile](https://docs.docker.com/engine/articles/dockerfile_best-practices/)
 - [Criando seus repositórios no Docker Hub](https://docs.docker.com/docker-hub/repos/)
 - [Criando seu próprio Docker Registry Privado](https://docs.docker.com/registry/deploying/)
+- [Referências do arquivo docker-compose.yml](http://docs.docker.com/compose/compose-file/)
