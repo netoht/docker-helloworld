@@ -152,6 +152,22 @@ docker login
 docker push <hub-user>/helloworld:latest
 ```
 
+## Removendo um container
+
+```sh
+docker ps
+CONTAINER ID        IMAGE                   COMMAND             CREATED             STATUS              PORTS                    NAMES
+f39077b79e51        netoht/helloworld2:v1   "python app.py"     28 minutes ago      Up 28 minutes       5000/tcp                 db
+
+docker rm -f f39077b79e51
+```
+
+## Removendo todos os container de uma só vez, os que estão em execução e os que estão parados
+
+```sh
+docker rm -f $(docker ps -a -q)
+```
+
 ## Extras
 
 - [Entendendo como funciona o Docker](https://docs.docker.com/engine/introduction/understanding-docker/)
