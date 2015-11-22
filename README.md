@@ -1,3 +1,7 @@
+## Apresentação
+
+<iframe src="https://docs.google.com/presentation/d/11cBepRSzV7J9jMZ8wuZoskB-Qh8OOuVSmKmHxm2rxKU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 ## Instalando o Docker
 
 ###### - Linux
@@ -168,10 +172,12 @@ docker rm -f $(docker ps -a -q)
 
 ## Extras
 
+- [Documentação Docker](https://docs.docker.com/)
 - [Entendendo como funciona o Docker](https://docs.docker.com/engine/introduction/understanding-docker/)
 - [Referências do comando docker run](https://docs.docker.com/engine/reference/run/)
 - [Referências do arquivo Dockerfile](https://docs.docker.com/engine/reference/builder/)
 - [Melhores práticas para criação do Dockerfile](https://docs.docker.com/engine/articles/dockerfile_best-practices/)
 - [Criando seus repositórios no Docker Hub](https://docs.docker.com/docker-hub/repos/)
 - [Criando seu próprio Docker Registry Privado](https://docs.docker.com/registry/deploying/)
+- [Entendendo como funcionar o Docker Compose](https://docs.docker.com/compose/)
 - [Referências do arquivo docker-compose.yml](http://docs.docker.com/compose/compose-file/)
