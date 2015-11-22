@@ -1,6 +1,6 @@
 ## Apresentação
 
-<iframe src="https://docs.google.com/presentation/d/11cBepRSzV7J9jMZ8wuZoskB-Qh8OOuVSmKmHxm2rxKU/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+[Ir para apresentação](http://bit.ly/docker-hw-pp)
 
 ## Instalando o Docker
 
