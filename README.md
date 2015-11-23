@@ -125,15 +125,38 @@ docker run -d -p 8080:5000 -h myserver-1 --name server1 <hub-user>/docker-hellow
 
 Parâmetros do comando `docker run`:
 
-- `-d`: o processo irá rodar em background
-- `-p`: está redirecionando a porta `8080` do host para a porta `5000` do container
-- `-h`: nome do host do container
-- `--name`: nome do container
+- `-d`: Executa o container em background (daemon)
+- `-h`: Nome do host do container
+- `-e`: Adiciona um variável de ambiente no container
+- `-p`: Mapeia uma porta específica do host para uma porta do container (host:container)
+- `-P`: Mapeia todas as portas do host para todas as portas do container que foram expostas
+- `-it`: Interativo com tty (não é recomendado usar com `-d`)
+- `--name`: Nome único para o container
+- `--rm:`: Indica que o container será deletado quando terminar de executar
+- `--expose`: Expõe uma porta ou um intervalo de portas do container
+- `--dns`: Adicionar um nameserver para busca de nomes
+- `--link`:
+- `--volume`:
+
 
 ## Listando as configurações do container
 
 ```sh
-docker inspect server1
+docker inspect <container-id or name>
+
+docker inspect --format='{{json .HostConfig}}' <container-id or name>
+```
+
+## Observando os logs do container
+
+```sh
+docker logs <container-id or name>
+```
+
+## Observando os processos do container
+
+```sh
+docker top <container-id or name>
 ```
 
 ## Compartilhando sua imagem no Docker Hub
@@ -155,20 +178,107 @@ docker login
 docker push <hub-user>/docker-helloworld:latest
 ```
 
-## Removendo um container
+## Parando um container
 
 ```sh
 docker ps
 CONTAINER ID        IMAGE                   COMMAND             CREATED             STATUS              PORTS                    NAMES
 f39077b79e51        netoht/helloworld2:v1   "python app.py"     28 minutes ago      Up 28 minutes       5000/tcp                 db
 
-docker rm -f f39077b79e51
+docker stop f39077b79e51
 ```
 
-## Removendo todos os container de uma só vez, os que estão em execução e os que estão parados
+## Removendo um container
+
+```sh
+docker ps -a
+CONTAINER ID        IMAGE                   COMMAND             CREATED             STATUS              PORTS                    NAMES
+f39077b79e51        netoht/helloworld2:v1   "python app.py"     28 minutes ago      Up 28 minutes       5000/tcp                 db
+
+docker rm f39077b79e51
+```
+
+## Removendo todos os containers parados
+
+```sh
+docker rm $(docker ps -a -q)
+```
+
+## Removendo todos os containers parados e em execução
 
 ```sh
 docker rm -f $(docker ps -a -q)
+```
+
+## Listando as variváveis de ambiente de uma imagem
+
+```sh
+docker run ubuntu env
+```
+
+## Local das imagens no disco
+
+Na máquina `host` onde o `docker daemon` é executado ficam
+
+O diretório `graph` em `/var/lib/docker/` ficam as imagens.
+
+Exemplo: `ls -l /var/lib/docker/graph/<image-id>/`
+
+```sh
+# acessando o host
+docker-machine ssh default
+sudo su -
+cd /var/lib/docker
+
+# lista de arquivos do docker no host
+ls -l /var/lib/docker/
+total 64
+drwxr-xr-x    5 root     root          4096 Oct  7 04:16 aufs
+drwx------   15 root     root          4096 Nov 23 00:32 containers
+drwx------   76 root     root         20480 Nov 22 05:23 graph   <--- 'graph' Significa 'images'
+-rw-r--r--    1 root     root         11264 Nov 23 00:32 linkgraph.db
+drwxr-x---    3 root     root          4096 Nov 21 18:10 network
+-rw-------    1 root     root           662 Nov 22 05:23 repositories-aufs
+drwx------    2 root     root          4096 Nov 22 05:23 tmp
+drwx------    2 root     root          4096 Oct  7 04:23 trust
+drwx------   14 root     root          4096 Nov 22 00:56 volumes
+
+# listando informações de uma imagem
+ls -l /var/lib/docker/graph/02b966f5f6bec2de14c7b5e16edc2b550a9c1494f9b6882bb495f69a1749442b/
+total 20
+-rw-------    1 root     root            71 Nov 22 00:35 checksum
+-rw-------    1 root     root          1319 Nov 22 00:35 json
+-rw-------    1 root     root             1 Nov 22 00:35 layersize
+-rw-------    1 root     root            82 Nov 22 00:35 tar-data.json.gz
+-rw-------    1 root     root          1296 Nov 22 00:35 v1Compatibility
+
+# buscando por arquivos de um container
+find /var/lib/docker/aufs/mnt -name <container-id>*
+/var/lib/docker/aufs/mnt/d7275954378a017059aaa7debd57352093e48cd5c5b0da42d9234bc5ab690a4b
+/var/lib/docker/aufs/mnt/d7275954378a017059aaa7debd57352093e48cd5c5b0da42d9234bc5ab690a4b-init
+
+# listando arquivos do container
+ls -l /var/lib/docker/aufs/mnt/d7275954378a017059aaa7debd57352093e48cd5c5b0da42d9234bc5ab690a4b
+total 76
+drwxr-xr-x    2 root     root          4096 Oct 28 04:34 bin
+drwxr-xr-x    2 root     root          4096 Apr 10  2014 boot
+drwxr-xr-x    4 root     root          4096 Nov 23 01:33 dev
+drwxr-xr-x   64 root     root          4096 Nov 23 01:33 etc
+drwxr-xr-x    2 root     root          4096 Apr 10  2014 home
+drwxr-xr-x   12 root     root          4096 Oct 28 04:34 lib
+drwxr-xr-x    2 root     root          4096 Oct 28 04:33 lib64
+drwxr-xr-x    2 root     root          4096 Oct 28 04:33 media
+drwxr-xr-x    2 root     root          4096 Apr 10  2014 mnt
+drwxr-xr-x    2 root     root          4096 Oct 28 04:33 opt
+drwxr-xr-x    2 root     root          4096 Apr 10  2014 proc
+drwx------    2 root     root          4096 Oct 28 04:34 root
+drwxr-xr-x    7 root     root          4096 Oct 28 04:34 run
+drwxr-xr-x    2 root     root          4096 Nov 10 00:35 sbin
+drwxr-xr-x    2 root     root          4096 Oct 28 04:33 srv
+drwxr-xr-x    2 root     root          4096 Mar 13  2014 sys
+drwxrwxrwt    2 root     root          4096 Oct 28 04:34 tmp
+drwxr-xr-x   11 root     root          4096 Nov 10 00:35 usr
+drwxr-xr-x   12 root     root          4096 Nov 10 00:35 var
 ```
 
 ## Extras
@@ -179,6 +289,15 @@ docker rm -f $(docker ps -a -q)
 - [Referências do arquivo Dockerfile](https://docs.docker.com/engine/reference/builder/)
 - [Melhores práticas para criação do Dockerfile](https://docs.docker.com/engine/articles/dockerfile_best-practices/)
 - [Criando seus repositórios no Docker Hub](https://docs.docker.com/docker-hub/repos/)
+- [Github do Docker Registry (distribution)](https://github.com/docker/distribution)
 - [Criando seu próprio Docker Registry Privado](https://docs.docker.com/registry/deploying/)
 - [Entendendo como funcionar o Docker Compose](https://docs.docker.com/compose/)
 - [Referências do arquivo docker-compose.yml](http://docs.docker.com/compose/compose-file/)
+
+## Referências
+
+- https://docs.docker.com/
+- http://christianposta.com/slides/docker/generated/day1.html
+- http://christianposta.com/slides/docker/generated/day2.html
+- http://christianposta.com/slides/docker/generated/day3.html
+- http://christianposta.com/slides/docker/generated/day4.html

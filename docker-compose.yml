@@ -1,3 +1,5 @@
+# Referências do arquivo docker-compose.yml - http://docs.docker.com/compose/compose-file/
+
 web1:
   hostname: server-web1
   image: netoht/docker-helloworld:latest
