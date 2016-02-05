@@ -127,7 +127,7 @@ Parâmetros do comando `docker run`:
 
 - `-d`: Executa o container em background (daemon)
 - `-h`: Nome do host do container
-- `-e`: Adiciona um variável de ambiente no container
+- `-e`: Adiciona uma variável de ambiente no container
 - `-p`: Mapeia uma porta específica do host para uma porta do container (host:container)
 - `-P`: Mapeia todas as portas do host para todas as portas do container que foram expostas
 - `-it`: Interativo com tty (não é recomendado usar com `-d`)
@@ -291,7 +291,7 @@ drwxr-xr-x   12 root     root          4096 Nov 10 00:35 var
 - [Criando seus repositórios no Docker Hub](https://docs.docker.com/docker-hub/repos/)
 - [Github do Docker Registry (distribution)](https://github.com/docker/distribution)
 - [Criando seu próprio Docker Registry Privado](https://docs.docker.com/registry/deploying/)
-- [Entendendo como funcionar o Docker Compose](https://docs.docker.com/compose/)
+- [Entendendo como funciona o Docker Compose](https://docs.docker.com/compose/)
 - [Referências do arquivo docker-compose.yml](http://docs.docker.com/compose/compose-file/)
 
 ## Referências
